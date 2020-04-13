@@ -53,10 +53,10 @@ if __name__ == '__main__':
         transforms.Normalize(mean, std)
     ])
 
-    train_dataset = FashionDataset('./train.csv', attributes, train_transform)
+    train_dataset = FashionDataset('./fashion-product-images/train.csv', attributes, train_transform)
     train_dataloader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=num_workers)
 
-    val_dataset = FashionDataset('./val.csv', attributes, val_transform)
+    val_dataset = FashionDataset('./fashion-product-images/val.csv', attributes, val_transform)
     val_dataloader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=num_workers)
 
     model = MultiOutputModel(n_color_classes=attributes.num_colors,
@@ -75,11 +75,11 @@ if __name__ == '__main__':
     n_train_samples = len(train_dataloader)
 
     # Uncomment rows below to see example images with ground truth labels in val dataset and all the labels:
-    # visualize_grid(model, val_dataloader, attributes, device, show_cn_matrices=False, show_images=True,
-    #                checkpoint=None, show_gt=True)
-    # print("\nAll gender labels:\n", attributes.gender_labels)
-    # print("\nAll color labels:\n", attributes.color_labels)
-    # print("\nAll article labels:\n", attributes.article_labels)
+    visualize_grid(model, val_dataloader, attributes, device, show_cn_matrices=False, show_images=True,
+                    checkpoint=None, show_gt=True)
+    print("\nAll gender labels:\n", attributes.gender_labels)
+    print("\nAll color labels:\n", attributes.color_labels)
+    print("\nAll article labels:\n", attributes.article_labels)
 
     print("Starting training ...")
 
